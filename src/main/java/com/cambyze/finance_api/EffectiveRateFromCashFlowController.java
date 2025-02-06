@@ -26,14 +26,14 @@ import io.swagger.v3.oas.annotations.servers.Server;
  * 
  */
 @OpenAPIDefinition(
-    info = @Info(title = "Cambyze financial service", version = "1.0",
+    info = @Info(title = "Cambyze financial service", version = "0.0",
         description = "Services to perform financial calculation",
         termsOfService = "https://cambyze.com/termsofservice/",
         license = @License(name = "Apache 2.0",
             url = "https://www.apache.org/licenses/LICENSE-2.0.html"),
         contact = @Contact(url = "https://cambyze.com/", name = "Cambyze support",
             email = "support@cambyze.com")),
-    servers = {@Server(description = "Cambyze server", url = "https://cambyze.com:9000/v1")})
+    servers = {@Server(description = "Cambyze server", url = "https://cambyze.com")})
 @RestController
 public class EffectiveRateFromCashFlowController {
 
