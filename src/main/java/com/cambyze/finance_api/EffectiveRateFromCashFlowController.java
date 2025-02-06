@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.cambyze.finance.FinancialCalculation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.servers.Server;
 
 /**
  * REST API controller for the financial library
@@ -23,13 +25,15 @@ import io.swagger.v3.oas.annotations.info.License;
  * @see <a href="https://cambyze.com">Cambyze</a>
  * 
  */
-@OpenAPIDefinition(info = @Info(title = "Cambyze financial service", version = "1.0",
-    description = "Services to perform financial calculation",
-    termsOfService = "https://cambyze.com/termsofservice/",
-    license = @License(name = "Apache 2.0",
-        url = "https://www.apache.org/licenses/LICENSE-2.0.html"),
-    contact = @Contact(url = "https://cambyze.com/", name = "cambyze",
-        email = "https://cambyze.com/")))
+@OpenAPIDefinition(
+    info = @Info(title = "Cambyze financial service", version = "1.0",
+        description = "Services to perform financial calculation",
+        termsOfService = "https://cambyze.com/termsofservice/",
+        license = @License(name = "Apache 2.0",
+            url = "https://www.apache.org/licenses/LICENSE-2.0.html"),
+        contact = @Contact(url = "https://cambyze.com/", name = "Cambyze support",
+            email = "support@cambyze.com")),
+    servers = {@Server(description = "Cambyze server", url = "https://cambyze.com:9000/v1")})
 @RestController
 public class EffectiveRateFromCashFlowController {
 
@@ -41,6 +45,8 @@ public class EffectiveRateFromCashFlowController {
   }
 
   @GetMapping("/effectiveRateFromCashFlow")
+  @Operation(summary = "Get effective rate",
+      description = "Get the effective rate from the cashflow (drawdowns and repayments")
   public BigDecimal calculateRate(
       @RequestBody EffectiveRateFromCashFlow effectiveRateFromCashFlow) {
     DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
