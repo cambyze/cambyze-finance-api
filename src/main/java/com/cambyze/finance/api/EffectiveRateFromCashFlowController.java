@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 /**
@@ -44,25 +51,41 @@ public class EffectiveRateFromCashFlowController {
     super();
   }
 
-  @GetMapping("/effectiveRateFromCashFlow")
+
+  private static final String DESC_GET_EFFECTIVE_RATE =
+      "#/components/schemas/EffectiveRateFromCashFlow = The cashflow (drawdowns and repayments) and the calculation base (true=real/365,false=30/360). "
+          + "Drawdowns and repayments are Array<Payment> (date at the format 'DD/MM/YYYY', amount as a double)";
+
+  @GET
+  @Consumes("application/json")
   @Operation(summary = "Get effective rate",
-      description = "Get the effective rate from the cashflow (drawdowns and repayments")
+      description = "Get the effective rate from the cashflow (drawdowns and repayments)",
+      requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+          description = DESC_GET_EFFECTIVE_RATE, required = true,
+          content = @Content(mediaType = "application/json",
+              contentSchema = @Schema(implementation = EffectiveRateFromCashFlow.class),
+              array = @ArraySchema(schema = @Schema(implementation = Payment.class)))),
+      responses = {@ApiResponse(description = "The calculated rate",
+          content = @Content(mediaType = "double"))})
+
+  @Path("/effectiveRateFromCashFlow")
+  @GetMapping("/effectiveRateFromCashFlow")
   public BigDecimal calculateRate(
       @RequestBody EffectiveRateFromCashFlow effectiveRateFromCashFlow) {
     DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LinkedHashMap<LocalDate, BigDecimal> cashFlow = new LinkedHashMap<LocalDate, BigDecimal>();
 
     // Add the drawdowns to the cashflow
-    Iterable<Payment> paymentsCollection = effectiveRateFromCashFlow.getDrawdowns();
-    for (Payment p : paymentsCollection) {
+    Iterable<Payment> drawdowns = effectiveRateFromCashFlow.getDrawdowns();
+    for (Payment p : drawdowns) {
       // Drawdowns are negative
       cashFlow.put(LocalDate.parse(p.getDate(), europeanDateFormatter),
           BigDecimal.valueOf(p.getAmount() * -1.0));
     }
 
+    Iterable<Payment> repayments = effectiveRateFromCashFlow.getRepayments();
     // Add the repayments to the cashflow
-    paymentsCollection = effectiveRateFromCashFlow.getRepayments();
-    for (Payment p : paymentsCollection) {
+    for (Payment p : repayments) {
       // repayments are positive
       cashFlow.put(LocalDate.parse(p.getDate(), europeanDateFormatter),
           BigDecimal.valueOf(p.getAmount()));

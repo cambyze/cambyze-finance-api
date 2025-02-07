@@ -86,7 +86,7 @@
 						${project.build.directory}/generated-OpenAPI-specification</outputPath>
 					<outputFormat>JSONANDYAML</outputFormat>
 					<resourcePackages>
-						<package>com.cambyze.finance_api</package>
+						<package>com.cambyze.finance.api</package>
 					</resourcePackages>
 					<prettyPrint>TRUE</prettyPrint>
 				</configuration>
