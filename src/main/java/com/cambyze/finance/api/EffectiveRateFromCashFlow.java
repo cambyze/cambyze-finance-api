@@ -1,4 +1,4 @@
-package com.cambyze.finance_api;
+package com.cambyze.finance.api;
 
 /**
  * Java bean for the request body parameter of the API /effectiveRateFromCashFlow

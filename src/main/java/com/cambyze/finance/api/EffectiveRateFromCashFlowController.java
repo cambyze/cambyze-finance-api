@@ -1,4 +1,4 @@
-package com.cambyze.finance_api;
+package com.cambyze.finance.api;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

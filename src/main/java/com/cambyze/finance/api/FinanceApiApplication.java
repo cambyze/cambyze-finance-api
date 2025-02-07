@@ -1,4 +1,4 @@
-package com.cambyze.finance_api;
+package com.cambyze.finance.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
