@@ -33,7 +33,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
             url = "https://www.apache.org/licenses/LICENSE-2.0.html"),
         contact = @Contact(url = "https://cambyze.com/", name = "Cambyze support",
             email = "support@cambyze.com")),
-    servers = {@Server(description = "Cambyze server", url = "https://cambyze.com")})
+    servers = {@Server(description = "Cambyze server", url = "https://cambyze.com/financial-api")})
 @RestController
 public class EffectiveRateFromCashFlowController {
 
