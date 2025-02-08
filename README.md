@@ -24,4 +24,21 @@ Example of cashflow to use for the request: <code>GET https://cambyze.com/financ
     "isActualDays" : false    
 }
 </code>
-</p>
+</p><p>
+Example of cashflow to use for the request: <code>GET https://cambyze.com/financial-api/netPresentValueFromCashFlow</code>
+</p><p>
+<code>{
+    "startdate":"01/01/2020",
+    "effectiveRate":12.6825,
+    "drawdowns" : [],
+    "repayments" : [
+        {"date":"01/02/2020","amount":51764.51},
+        {"date":"01/03/2020","amount":51764.51},
+        {"date":"01/04/2020","amount":51764.51},
+        {"date":"01/05/2020","amount":51764.51},
+        {"date":"01/06/2020","amount":51764.51},
+        {"date":"01/07/2020","amount":51764.51}
+    ],
+    "isActualDays" : false    
+}
+</code>
