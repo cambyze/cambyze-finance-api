@@ -1,11 +1,11 @@
 package com.cambyze.finance.api;
 
-/**
- * Generated Spring Servlet Initializer
- */
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+/**
+ * Generated Spring Servlet Initializer
+ */
 public class ServletInitializer extends SpringBootServletInitializer {
 
   @Override
